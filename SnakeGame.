@@ -1,0 +1,68 @@
+import pygame
+import random
+
+pygame.init()  # import all the module in pygame
+
+# color
+white = (255, 255, 255)
+black = (000, 000, 000)
+red = (255, 0, 0)
+
+# screen size   #creat a window and set its name and height and width with refersh and
+
+screen_widh = 600
+screen_height = 600
+pygamewindow = pygame.display.set_mode((screen_height, screen_widh))
+pygame.display.set_caption("snake game")
+pygame.display.update()  # creat a window and set its name and height and width with refersh and
+
+# loop for game
+exit_game = False
+game_over = False
+snake_x = 45
+snake_y = 55
+velocity_x = 0
+velocity_y = 0
+# defining food
+food_x = random.randint(0, screen_widh)
+food_y = random.randint(0, screen_height)
+snake_size = 10
+fps = 30
+clock = pygame.time.Clock()
+
+# running in while loop
+while not exit_game:  # if exit game is false it will loop in the game
+    for event in pygame.event.get():  # getting coordinte of mouse
+        print(event)  # printing coordinte of mouse
+        if event.type == pygame.QUIT:
+            exit_game = True  # if when exit game = true it will  break the loop and  exit
+
+        if event.type == pygame.KEYDOWN:  # moving snake in all direction with velocity
+            if event.key == pygame.K_RIGHT:
+                velocity_x = 6
+                velocity_y = 0
+
+            if event.key == pygame.K_LEFT:
+                velocity_x = - 6
+                velocity_y = 0
+
+            if event.key == pygame.K_DOWN:
+                velocity_y = 6
+                velocity_x = 0
+
+            if event.key == pygame.K_UP:
+                velocity_y = -6
+                velocity_x = 0
+
+    snake_x = snake_x + velocity_x
+    snake_y = snake_y + velocity_y
+    # creating event life color change, making head of the  snake
+    # main snake , food with color
+    pygamewindow.fill(white)
+    pygame.draw.rect(pygamewindow, red, [food_x, food_y, snake_size, snake_size])
+    pygame.draw.rect(pygamewindow, black, [snake_x, snake_y, snake_size, snake_size])
+    pygame.display.update()
+    clock.tick(fps)
+
+exit_game = False
+game_over = False
